@@ -1977,3 +1977,53 @@ public class Main {
     }
 }
  */
+
+/* 7-9. 뮤직비디오 (결정 알고리즘 - 이분 검색 활용)
+public class Main {
+
+    public int Solution(int n, int m, int[] arr) {
+        int answer = 0;
+
+        int lt = Arrays.stream(arr).max().getAsInt();
+        int rt = Arrays.stream(arr).sum();
+
+        while(lt <= rt) {
+            int mid = (lt + rt) / 2;
+            if(isAvailableNum(n, m, arr, mid)) {
+                rt = mid - 1;
+                answer = mid;
+            }
+            else lt = mid + 1;
+
+        }
+        return answer;
+    }
+
+    public boolean isAvailableNum(int n, int m, int[] arr, int checkNum) {
+        int temp = 0;
+        int cnt = 1;
+        for(int x : arr) {
+            if(temp + x > checkNum) {
+                cnt++;
+                temp = x;
+            } else {
+                temp += x;
+            }
+            if(cnt > m) return false;
+        }
+        return true;
+    }
+
+    public static void main(String[] args) {
+        Main T = new Main();
+        Scanner kb = new Scanner(System.in);
+        int n = kb.nextInt();
+        int m = kb.nextInt();
+        int[] arr = new int[n];
+        for(int i = 0; i < n; i++) {
+            arr[i] = kb.nextInt();
+        }
+        System.out.println(T.Solution(n, m, arr));
+    }
+}
+ */
