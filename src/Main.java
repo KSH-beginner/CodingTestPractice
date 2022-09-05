@@ -2027,3 +2027,49 @@ public class Main {
     }
 }
  */
+
+/* 7-10. 마구간 정하기(강의 들어도 모르겠음... 로직 이해 불가 그냥 넘어가기)
+public class Main {
+
+    public int Solution(int n, int c, int[] arr) {
+        int answer = 0;
+        Arrays.sort(arr);
+        // 검색하고자 하는 값 : 가까운 두 말의 최대 거리
+        int lt = 1;
+        int rt = arr[n-1];
+        while(lt <= rt) {
+            int mid = (lt + rt) / 2;
+            if(maxCount(arr, mid) >= c) {
+                answer = mid;
+                lt = mid + 1;
+            }
+            else rt = mid - 1;
+        }
+        return answer;
+    }
+
+    public int maxCount(int[] arr, int mid) {
+        int cnt = 1;
+        int temp = arr[0];
+        for(int x : arr) {
+            if(x - temp >= mid) {
+                temp = x;
+                cnt++;
+            }
+        }
+        return cnt;
+    }
+
+    public static void main(String[] args) {
+        Main T = new Main();
+        Scanner kb = new Scanner(System.in);
+        int n = kb.nextInt();
+        int c = kb.nextInt();
+        int[] arr = new int[n];
+        for(int i = 0; i < n; i++) {
+            arr[i] = kb.nextInt();
+        }
+        System.out.println(T.Solution(n, c, arr));
+    }
+}
+ */
