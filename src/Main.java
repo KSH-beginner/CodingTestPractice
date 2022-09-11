@@ -1944,7 +1944,7 @@ public class Main {
 }
  */
 
-/* 7-8. 이분검색
+/* 6-8. 이분검색
 public class Main {
 
     public int Solution(int n, int m, int[] arr) {
@@ -1978,7 +1978,7 @@ public class Main {
 }
  */
 
-/* 7-9. 뮤직비디오 (결정 알고리즘 - 이분 검색 활용)
+/* 6-9. 뮤직비디오 (결정 알고리즘 - 이분 검색 활용)
 public class Main {
 
     public int Solution(int n, int m, int[] arr) {
@@ -2028,7 +2028,7 @@ public class Main {
 }
  */
 
-/* 7-10. 마구간 정하기(강의 들어도 모르겠음... 로직 이해 불가 그냥 넘어가기)
+/* 6-10. 마구간 정하기(강의 들어도 모르겠음... 로직 이해 불가 그냥 넘어가기)
 public class Main {
 
     public int Solution(int n, int c, int[] arr) {
@@ -2074,6 +2074,7 @@ public class Main {
 }
  */
 
+/* 7-1. 재귀함수(스택프레임)
 public class Main {
 
     public void DFS(int n) {
@@ -2082,6 +2083,29 @@ public class Main {
         else {
             DFS(n-1);
             System.out.print(n + " ");
+        }
+
+    }
+
+    public static void main(String[] args) {
+        Main T = new Main();
+        Scanner kb = new Scanner(System.in);
+        int n = kb.nextInt();
+        T.DFS(n);
+    }
+}
+ */
+
+public class Main {
+
+    public void DFS(int n) {
+        int rest = n % 2;
+        int quotient = n / 2;
+        if(n == 0) {
+            return;
+        } else {
+            DFS(quotient);
+            System.out.print(rest + "");
         }
 
     }
