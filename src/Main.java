@@ -2139,6 +2139,7 @@ public class Main {
 }
  */
 
+/* 7-4. 피보나치 수열
 public class Main {
 
     static int[] fibo;
@@ -2159,5 +2160,57 @@ public class Main {
         fibo = new int[n+1]; // 10번 인덱스 사용하기 위해
         T.DFS(n);
         for(int i = 1; i <= n; i++) System.out.print(fibo[i] + " ");
+    }
+}
+ */
+
+
+public class Main {
+
+    // 노드 값을 저장하는 노드 클래스
+    static class Node {
+        int data;
+        Node lt, rt; // Node 변수 lt, rt는 왼쪽, 오른쪽 자식의 노드를 저장(Node 객체를 저장) -> 한마디로 왼쪽, 오른쪽 자식의 노드 저장
+        public Node(int value) { // value에 노드 값을 받아서 초기화, 왼쪽, 오른쪽 자식은 null로 초기화
+            data = value;
+            lt = rt = null;
+        }
+    }
+
+    Node root;
+    public void DFS(Node root) {
+        if(root == null) return; // 파라미터(root)가 null이라면, 맨 끝 노드로 온 것이므로 재귀 종료
+        else {
+            // 루트 노드에서 왼쪽으로도 뻗고, 오른쪽으로도 뻗어야함(계속 재귀) -> 함수 호출이 일어나는 개수가 자식의 가짓수 : 2번
+            // 프린트 문 : 부모 출력
+            // DFS(root.lt) : 왼쪽 자식 출력
+            // DFS(root.rt) : 오른쪽 자식 출력
+
+            // 프린트 문이 함수 전에 있으면 전위순회 출력(부모 출력 -> 왼쪽 자식 출력 -> 오른쪽 자식 출력)
+            // System.out.print(root.data + " ");
+
+            DFS(root.lt); // 루트 노드에서 왼쪽 자식으로
+
+            // 프린트 문이 함수 중간에 있으면 중위순회 출력(왼쪽 자식 출력 -> 부모 출력 -> 오른쪽 자식 출력)
+            // System.out.print(root.data + " ");
+
+            DFS(root.rt); // 루트 노드에서 오른쪽 자식으로
+
+            // 프린트 문이 함수 이후에 있으면 후위순회 출력(왼쪽 자식 출력 -> 오른쪽 자식 출력 -> 부모 출력)
+            System.out.print(root.data + " ");
+        }
+    }
+
+    public static void main(String args[]) {
+        Main tree = new Main();
+        tree.root = new Node(1); // 생성되는 순간 부모는 1, lt, rt는 null. 이후의 root는 여기서 생성된 Node 객체 참조
+        tree.root.lt = new Node(2); // 값이 1인 노드(위에서 처음 생성)의 왼쪽 자식 Node 생성하고, 노드 1의 lt로 생성한 왼쪽 자식 Node를 대입
+        tree.root.rt = new Node(3); // 값이 1인 노드(위에서 처음 생성)의 오른쪽 자식 Node 생성
+        // 이후는 동일한 매커니즘으로 Node 생성 후 대입
+        tree.root.lt.lt = new Node(4);
+        tree.root.lt.rt = new Node(5);
+        tree.root.rt.lt = new Node(6);
+        tree.root.rt.rt = new Node(7);
+        tree.DFS(tree.root);
     }
 }
