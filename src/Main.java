@@ -2164,7 +2164,7 @@ public class Main {
 }
  */
 
-
+/* 7-5. 이진트리 순회 (DFS)
 public class Main {
 
     // 노드 값을 저장하는 노드 클래스
@@ -2212,5 +2212,38 @@ public class Main {
         tree.root.rt.lt = new Node(6);
         tree.root.rt.rt = new Node(7);
         tree.DFS(tree.root);
+    }
+}
+ */
+
+public class Main {
+    static int n; // 1 ~ n 까지 부분집합 개수구하는 것이므로 n 변수로
+    static int[] ch; // 각 자연수에서 부분집합에 사용할 것인지, 안 하는지 체크하는 배열 -> 사용하면 1, 사용하지 않으면 0
+
+    public void DFS(int L) {
+        if(L == n+1) {
+            // DFS(4)가 들어온다면, 끝이므로 ch 배열을 1부터 3(n)까지 돌면서 값이 1인 인덱스 출력
+            String tmp = "";
+            for(int i = 1; i <= n; i++) {
+                if(ch[i] == 1) tmp += (i + " ");
+            }
+            if(tmp.length() > 0) System.out.println(tmp);
+
+        } else {
+            // L을 사용한다는 의미로 왼쪽으로 뻗기
+            ch[L] = 1;
+            DFS(L+1);
+
+            // L을 사용하지 않는다는 의미로 오른쪽으로 뻗기
+            ch[L] = 0;
+            DFS(L+1);
+        }
+    }
+
+    public static void main(String[] args) {
+        Main T = new Main();
+        n = 3;
+        ch = new int[n+1];
+        T.DFS(1);
     }
 }
