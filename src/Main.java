@@ -2216,6 +2216,7 @@ public class Main {
 }
  */
 
+/* 7-6. 부분집합 구하기 (DFS)
 public class Main {
     static int n; // 1 ~ n 까지 부분집합 개수구하는 것이므로 n 변수로
     static int[] ch; // 각 자연수에서 부분집합에 사용할 것인지, 안 하는지 체크하는 배열 -> 사용하면 1, 사용하지 않으면 0
@@ -2245,5 +2246,98 @@ public class Main {
         n = 3;
         ch = new int[n+1];
         T.DFS(1);
+    }
+}
+ */
+
+/* 7-7. 이진트리 레벨탐색(BFS : Breadth-First Search)
+public class Main {
+
+    static class Node {
+        int data;
+        Node lt, rt;
+        public Node(int value) {
+            data = value;
+            lt = rt = null;
+        }
+    }
+
+    Node root;
+    public void BFS(Node root) {
+        Queue<Node> queue = new LinkedList<>();
+
+        queue.offer(root);
+        int L = 0; // 레벨
+
+        // 큐가 비어 있으면 반복 멈춤
+        while(!queue.isEmpty()) {
+            int len = queue.size();
+            System.out.print(L + "LEVEL : ");
+
+            // 현재 큐를 돌면서 poll하고, poll한 값 출력
+           for(int i = 0; i < len; i++) {
+                Node current = queue.poll();
+                System.out.print(current.data  + " ");
+
+                // 현재 노드의 왼쪽, 오른쪽 자식이 있으면 큐에 넣기
+                if(current.lt != null) queue.offer(current.lt);
+                if(current.rt != null) queue.offer(current.rt);
+            }
+           L++;
+            System.out.println();
+        }
+
+    }
+
+    public static void main(String[] args) {
+        Main tree = new Main();
+        tree.root = new Node(1);
+        tree.root.lt = new Node(2);
+        tree.root.rt = new Node(3);
+        tree.root.lt.lt = new Node(4);
+        tree.root.lt.rt = new Node(5);
+        tree.root.rt.lt = new Node(6);
+        tree.root.rt.rt = new Node(7);
+        tree.BFS(tree.root);
+    }
+}
+ */
+
+public class Main {
+
+    int answer = 0;
+    int[] dis = {1, -1, 5}; // 한 번에 점프할 수 있는 칸(1칸, -1칸, 5칸)
+    int[] ch; // BFS 시 중복되는 Node(한번 Queue에 들어간 Node)는 BFS 탐색하지 않기 위해 Queue에 들어간 Node를 넣어놓는 배열
+    Queue<Integer> queue = new LinkedList<>();
+
+    public int BFS(int s, int e) {
+        ch = new int[10001];
+        ch[s] = 1;
+        queue.offer(s);
+        int L = 0; // L : BFS의 레벨값, 점프 횟수
+        while(!queue.isEmpty()) {
+            int len = queue.size();
+            for(int i = 0; i < len; i++) {
+                int x = queue.poll();
+                for(int j = 0; j < 3; j++) {
+                    int nx = x + dis[j];
+                    if(nx == e) return L + 1; // 자식 노드가 e일때, 현재 부모 레벨보다 +1인 값이 정답이므로 L+1로 return
+                    if(nx >= 1 && nx <= 10000 && ch[nx] == 0) { // 자식 노드 값이 1~10000 사이(문제 조건)이고, Queue에 들어가지 않았던 값일때(ch[nx] ==0) offer하기
+                        ch[nx] = 1;
+                        queue.offer(nx);
+                    }
+                }
+            }
+            L++;
+        }
+        return 0;
+    }
+
+    public static void main(String[] args) {
+        Main T = new Main();
+        Scanner kb = new Scanner(System.in);
+        int s = kb.nextInt();
+        int e = kb.nextInt();
+        System.out.println(T.BFS(s, e));
     }
 }
