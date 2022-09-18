@@ -2303,6 +2303,7 @@ public class Main {
 }
  */
 
+/* 7-8. 송아지 찾기(BFS)
 public class Main {
 
     int answer = 0;
@@ -2339,5 +2340,48 @@ public class Main {
         int s = kb.nextInt();
         int e = kb.nextInt();
         System.out.println(T.BFS(s, e));
+    }
+}
+ */
+
+public class Main {
+
+    static class Node {
+        int data;
+        Node lt, rt;
+        public Node(int value) {
+            data = value;
+            lt = rt = null;
+        }
+    }
+
+    Node root;
+    List<Integer> answer = new ArrayList<>();
+    Queue<Node> queue = new LinkedList<>();
+
+    public int BFS(Node root) {
+        queue.offer(root);
+        int L = 0; // BFS의 레벨 값
+        while(!queue.isEmpty()) {
+            int len = queue.size();
+            for(int i = 0; i < len; i++) {
+                Node current = queue.poll();
+                if(current.lt != null) queue.offer(current.lt);
+                if(current.rt != null) queue.offer(current.rt);
+                if(current.lt == null && current.rt == null) answer.add(L);
+            }
+            L++;
+        }
+        return Collections.min(answer);
+    }
+
+    public static void main(String[] args) {
+        Main tree = new Main();
+        tree.root = new Node(1);
+        tree.root.lt = new Node(2);
+        tree.root.rt = new Node(3);
+        tree.root.lt.lt = new Node(4);
+        tree.root.lt.rt = new Node(5);
+        System.out.println(tree.BFS(tree.root));
     }
 }
