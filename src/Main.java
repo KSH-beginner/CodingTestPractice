@@ -2344,6 +2344,7 @@ public class Main {
 }
  */
 
+/* 7-10. Tree 말단노드까지의 가장 짧은 경로(BFS)
 public class Main {
 
     static class Node {
@@ -2385,3 +2386,47 @@ public class Main {
         System.out.println(tree.BFS(tree.root));
     }
 }
+ */
+
+/* 7-12. 경로 탐색(DFS)
+public class Main {
+
+    static int n, m, cnt = 0;
+    static int[][] graph;
+    static int[] check;
+
+    public void DFS(int val) {
+        if(val == n) {
+            cnt++;
+            return;
+        }
+        else {
+            for(int i = 1; i <= n; i++) {
+                if(graph[val][i] == 1 && check[i] == 0) {
+                    check[i] = 1;
+                    DFS(i);
+                    check[i] = 0; // DFS가 들어가고 난 후에는 다시 0으로 초기화해야 다음 DFS 정상 작동
+                }
+            }
+        }
+    }
+
+
+    public static void main(String[] args) {
+        Main T = new Main();
+        Scanner kb = new Scanner(System.in);
+        n = kb.nextInt();
+        m = kb.nextInt();
+        graph = new int[n+1][n+1];
+        check = new int[n+1];
+        for(int i = 0; i < m; i++) {
+            int a = kb.nextInt();
+            int b = kb.nextInt();
+            graph[a][b] = 1;
+        }
+        check[1] = 1;
+        T.DFS(1);
+        System.out.println(cnt);
+    }
+}
+ */
