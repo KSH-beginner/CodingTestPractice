@@ -2472,3 +2472,111 @@ public class Main {
     }
 }
  */
+
+/* 7-14. 그래프 최단 거리 (BFS - 상태트리, LEVEL 활용)
+public class Main {
+
+    static int n, m;
+    static int[] answer;
+    static boolean[] visited;
+    static ArrayList<ArrayList<Integer>> graph;
+
+    public void BFS(int value) {
+        Queue<Integer> queue = new LinkedList<>();
+        int level = 0;
+        queue.offer(value);
+        while(!queue.isEmpty()) {
+            int len = queue.size();
+            for(int i = 0; i < len; i++) {
+                Integer cur = queue.poll();
+                answer[cur] = level;
+                for(Integer x : graph.get(cur)) {
+                    if(!visited[x]) {
+                        queue.offer(x);
+                        visited[x] = true;
+                    }
+                }
+            }
+            level++;
+        }
+    }
+
+    public static void main(String[] args) {
+        Main T = new Main();
+        Scanner kb = new Scanner(System.in);
+        n = kb.nextInt();
+        m = kb.nextInt();
+        answer = new int[n+1];
+        visited = new boolean[n+1];
+        graph = new ArrayList<ArrayList<Integer>>();
+        for(int i = 0; i <= n; i++) {
+            graph.add(new ArrayList<Integer>());
+        }
+
+        for(int i = 0; i < m; i++) {
+            int a = kb.nextInt();
+            int b = kb.nextInt();
+            graph.get(a).add(b);
+        }
+        visited[1] = true;
+        T.BFS(1);
+        for(int x : answer) {
+            System.out.println(x);
+        }
+    }
+}
+
+
+/* 7-14. 그래프 최단 거리 (BFS, 배열 활용)
+public class Main {
+
+    static int n, m;
+    static int[] answer; // 최단거리 배열(인덱스 -> 각 노드 번호)
+    static boolean[] visited; // 방문했는지 체크하는 배열(방문했었으면 TRUE)
+    static ArrayList<ArrayList<Integer>> graph;
+
+    public void BFS(int value) {
+        Queue<Integer> queue = new LinkedList<>();
+        queue.offer(value);
+        answer[value] = 0;
+
+        while(!queue.isEmpty()) {
+            int len = queue.size();
+            for(int i = 0; i < len; i++) {
+                Integer cur = queue.poll();
+                for(Integer x : graph.get(cur)) {
+                    if(!visited[x]) {
+                        queue.offer(x);
+                        visited[x] = true;
+                        answer[x] = answer[cur] + 1;
+                    }
+                }
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        Main T = new Main();
+        Scanner kb = new Scanner(System.in);
+        n = kb.nextInt(); // 정점 개수
+        m = kb.nextInt(); // 간선 개수
+        answer = new int[n+1];
+        visited = new boolean[n+1];
+        graph = new ArrayList<ArrayList<Integer>>();
+        for(int i = 0; i <= n; i++) {
+            graph.add(new ArrayList<Integer>());
+        }
+
+        for(int i = 0; i < m; i++) {
+            int a = kb.nextInt();
+            int b = kb.nextInt();
+            graph.get(a).add(b);
+        }
+        visited[1] = true;
+        T.BFS(1);
+        for(int x : answer) {
+            System.out.println(x);
+        }
+    }
+}
+*/
