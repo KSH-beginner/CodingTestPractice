@@ -2580,3 +2580,42 @@ public class Main {
     }
 }
 */
+
+/* 8-1. 합이 같은 부분 집합(DFS)
+public class Main {
+
+    static int n;
+    static String answer = "NO";
+    static int[] num;
+    static boolean check;
+    static int total;
+
+    public void DFS(int L, int sum) { // L은 num 배열의 인덱스 DFS 돌 때마다 1씩 증가
+        if(L == n) {
+            if(check) return;
+            if(sum > total/2) return;
+            if(total - sum == sum) {
+                answer = "YES";
+                check = true;
+                return;
+            }
+        } else {
+            DFS(L+1, sum + num[L]);
+            DFS(L+1, sum);
+        }
+    }
+
+    public static void main(String[] args) {
+        Main T = new Main();
+        Scanner kb = new Scanner(System.in);
+        n = kb.nextInt();
+        num = new int[n];
+        for(int i = 0; i < n; i++) {
+            num[i] = kb.nextInt();
+        }
+        total = Arrays.stream(num).sum();
+        T.DFS(0, 0);
+        System.out.println(answer);
+    }
+}
+ */
