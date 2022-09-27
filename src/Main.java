@@ -2619,3 +2619,38 @@ public class Main {
     }
 }
  */
+
+/* 8-2. 바둑이 승차(DFS)
+public class Main {
+
+    static int[] arr;
+    static int answer;
+    static int c;
+    static int n;
+
+    public void DFS(int L, int sum) {
+        if(sum > c) return;
+        if(L == n) {
+            answer = Math.max(answer, sum);
+        }
+        else {
+            DFS(L+1, sum + arr[L]);
+            DFS(L+1, sum);
+        }
+
+    }
+
+    public static void main(String[] args) {
+        Main T = new Main();
+        Scanner kb = new Scanner(System.in);
+        c = kb.nextInt();
+        n = kb.nextInt();
+        arr = new int[n];
+        for(int i = 0; i < n; i++) {
+            arr[i] = kb.nextInt();
+        }
+        T.DFS(0, 0);
+        System.out.println(answer);
+    }
+}
+ */
