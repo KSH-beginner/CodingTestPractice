@@ -2654,3 +2654,45 @@ public class Main {
     }
 }
  */
+
+/* 8-3. 최대점수 구하기(DFS)
+public class Main {
+
+    static int n;
+    static int m;
+    static int[] problemScore;
+    static int[] problemTime;
+    static int answer;
+
+    // L : 인덱스, sum : 점수 합, time : 시간 합, ps : 입력받은 점수 배열, pt : 입력받은 시간 배열
+    public void DFS(int L, int sum, int time) {
+        if(time > m) return;
+        if(L == n) {
+            answer = Math.max(answer, sum);
+        }
+        else {
+            DFS(L+1, sum + problemScore[L], time + problemTime[L]); // 문제를 푸는 것
+
+            // 문제를 안 푸는 것 -> L == n이 나올 수 있다.
+            // 위에서 문제를 풀기만 하면 time > m에 걸려서 return돼서 L == n이 안 나올거라고 생각했는데
+            // 문제를 안풀고 쭉 가면 time > m에 걸릴 일이 없어서 L == n이 될 수 있다.
+            DFS(L+1, sum, time);
+        }
+    }
+
+    public static void main(String[] args) {
+        Main T = new Main();
+        Scanner kb = new Scanner(System.in);
+        n = kb.nextInt();
+        m = kb.nextInt();
+        problemScore = new int[n];
+        problemTime = new int[n];
+        for(int i = 0; i < n; i++) {
+            problemScore[i] = kb.nextInt();
+            problemTime[i] = kb.nextInt();
+        }
+        T.DFS(0, 0, 0);
+        System.out.println(answer);
+    }
+}
+ */
